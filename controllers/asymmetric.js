@@ -31,7 +31,8 @@ class AsymmetricController {
 
         return res.send({
             success:true,
-            message:utf8
+            decoded:utf8,
+            message:JSON.stringify(box)
         });
 
     };
