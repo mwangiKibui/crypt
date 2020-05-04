@@ -1,12 +1,12 @@
 
 const crypto = require('crypto');
 //specify the algorithm
-const algorithm = 'aes-192-cbc';
+const algorithm = 'aes-256-ctr';
 const password = 'myPassword';
-const key = crypto.scryptSync(password,'salt',24);
-const iv = Buffer.alloc(16);
-const cipher = crypto.createCipheriv(algorithm,key,iv);
-const decipher = crypto.createDecipheriv(algorithm,key,iv);
+// const key = crypto.scryptSync(password,'salt',24);
+// const iv = Buffer.alloc(16);
+const cipher = crypto.createCipher(algorithm,password);
+const decipher = crypto.createDecipher(algorithm,password);
 
 class SymmetricController {
 
