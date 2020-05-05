@@ -1,7 +1,7 @@
 
 const crypto = require('crypto');
 //specify the algorithm
-const algorithm = 'aes-256-ctr';
+const algorithm = 'aes-192-cbc';
 const password = 'myPassword';
 const key = crypto.scryptSync(password,'salt',24);
 const iv = Buffer.alloc(16);
