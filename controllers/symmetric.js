@@ -20,7 +20,7 @@ class SymmetricController {
 
         return res.send({
             success:true,
-            message:encoded_message
+            message:encoded_message //Encoded
         });
 
     };
@@ -28,7 +28,7 @@ class SymmetricController {
     async decrypt(req,res){
         
         //we are converting from an already hex to utf8
-        let {message} = req.body;
+        let {message} = req.body; //Cipher
         let decoded_message = decipher.update(message,'hex','utf8');
         decoded_message += decipher.final('utf8');
 
