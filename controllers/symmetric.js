@@ -15,12 +15,16 @@ class SymmetricController {
 
         //we are converting from a utf8 to a hex
         let {message} = req.body;
-        let encoded_message = cipher.update(message,'utf8','hex');
-        encoded_message += cipher.final('hex');
+        let encoded;
+        cipher.on('readable', () => {
+            return encoded = cipher.read();
+        })
+        cipher.write(message);
+        cipher.end();
 
         return res.send({
             success:true,
-            message:encoded_message //Encoded
+            message:encoded.toString('hex') //Encoded
         });
 
     };
@@ -29,13 +33,17 @@ class SymmetricController {
         
         //we are converting from an already hex to utf8
         let {message} = req.body; //Cipher
-        let decoded_message = decipher.update(message,'hex','utf8');
-        decoded_message += decipher.final('utf8');
-
+        let decoded;
+        decipher.on('readable', () => {
+            decoded = decipher.read();
+        })
+        
+        decipher.write(message, 'hex')
+        decipher.end();
 
         return res.send({
             success:true,
-            message:decoded_message
+            message:decoded.toString('utf8')
         })
     }
 
